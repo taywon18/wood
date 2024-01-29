@@ -1,12 +1,15 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Text;
 
-namespace Wood.Destination
+namespace Wood.Destination;
 {
+    /// <summary>
+    /// Write log into file. Keeps file open during object existence.
+    /// </summary>
+
     public class FileDestination
         : Destination
+    ,   , IDisposable
     {
         public readonly string Path;
         public readonly StreamWriter File; 
@@ -27,7 +30,12 @@ namespace Wood.Destination
                 File.AutoFlush = true;
         }
 
-        public override void Log(int thread, DateTime moment, Gravity gravity, string message)
+    public void Dispose()
+    {
+        File.Dispose();
+    }
+
+    public override void Log(int thread, DateTime moment, Gravity gravity, string message)
         {
             File.WriteLine("[" + gravity.ToString() + "] " + moment.ToString("HH:mm:ss.ff") + ", " + thread + ": " + message);
         }

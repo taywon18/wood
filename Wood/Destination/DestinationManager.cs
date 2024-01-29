@@ -16,7 +16,7 @@ namespace Wood.Destination
         }
 
         public void AddDestination<T>(T destination) where T : Destination
-        {
+        {   
             Destinations.Add(destination);
         }
     }

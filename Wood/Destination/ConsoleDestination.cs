@@ -1,9 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace Wood.Destination
 {
+
+    /// <summary>
+    /// Display log message in the console.
+    /// </summary>
     public class ConsoleDestination
         : Destination
     {
@@ -51,10 +53,6 @@ namespace Wood.Destination
             {
                 System.Console.BackgroundColor = System.ConsoleColor.Black;
                 System.Console.ForegroundColor = System.ConsoleColor.Gray;
-            }
-            else
-            {
-                //TODO: Log warning
             }
 
             System.Console.WriteLine("[" + gravity.ToString() + "] " + moment.ToString("HH:mm:ss.ff") +", "+thread+ ": " + message);

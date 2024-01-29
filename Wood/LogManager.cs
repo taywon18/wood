@@ -4,18 +4,6 @@ using Wood.Destination;
 
 namespace Wood
 {
-    public enum Gravity : byte
-    {
-        Emergency, // Système inutilisable
-        Alert, // Intervention immédiate nécessaire
-        Critical, // Erreur critique
-        Error, // Erreur de fonctionnement
-        Warning, // Avertissement
-        Notice, // Evenement normal
-        Informational, // Pour information
-        Debugging // Message de débug
-    };
-
     public class LogManager
     {
         public readonly static LogManager Instance = new LogManager();
@@ -31,6 +19,7 @@ namespace Wood
             Destinations.AddDestination(new FileDestination());
         }
 
+        #region Helpers
         private void Message(Gravity g, string message)
         {
             Destinations.Log(Thread.CurrentThread.ManagedThreadId, DateTime.Now, g, message);
@@ -80,5 +69,6 @@ namespace Wood
         {
             Instance.Message(Gravity.Emergency, message);
         }
+        #endregion
     }
 }
