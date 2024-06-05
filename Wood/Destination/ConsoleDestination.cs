@@ -14,19 +14,27 @@ namespace Wood.Destination
         public static ConsoleColor DefaultBackgroundColor { get; } = ConsoleColor.Black;
         public static ConsoleColor DefaultForegroundColor { get; } = ConsoleColor.Gray;
 
+        bool Inited = false;
+
         public ConsoleDestination()
-            : this(true)
+            : this(false)
         {
 
         }
 
         public ConsoleDestination(bool setUtf8)
         {
-            Console.OutputEncoding = UTF8Encoding.UTF8;
+            Inited = !setUtf8;
         }
 
         public override void Log(int thread, DateTime moment, Severity severity, Message message)
         {
+            if(!Inited)
+            {
+                Inited = true;
+                Console.OutputEncoding = UTF8Encoding.UTF8;
+            }
+
             System.ConsoleColor oldbackground = System.Console.BackgroundColor;
             System.ConsoleColor oldforeground = System.Console.ForegroundColor;
 

@@ -8,7 +8,7 @@
     <Description>Simple extendable log system</Description>
     <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <Version>2.0.0</Version>
+    <Version>2.0.1</Version>
     <PackageReleaseNotes>added better chat generation</PackageReleaseNotes>
     <RepositoryUrl>https://github.com/taywon18/wood</RepositoryUrl>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
