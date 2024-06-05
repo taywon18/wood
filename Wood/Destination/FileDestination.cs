@@ -12,9 +12,11 @@ namespace Wood.Destination
         : Destination
         , IDisposable
     {
-        public readonly string Path;
-        public readonly StreamWriter File;
+        private string Path;
+        private StreamWriter File;
         public string Format = "[{0}] {1}, {2}: {3}";
+
+        bool Inited = false;
 
         public FileDestination()
             : this("./logs/")
@@ -25,7 +27,16 @@ namespace Wood.Destination
         public FileDestination(string dirpath)
         {
             Path = dirpath;
+        }
 
+        public void Dispose()
+        {
+            if(Inited)
+                File.Dispose();
+        }
+
+        private void Init()
+        {
             if (!Directory.Exists(Path))
                 Directory.CreateDirectory(Path);
 
@@ -36,15 +47,15 @@ namespace Wood.Destination
                 LogManager.Log(Severity.Error, $"Cannot open log file: {Path}.");
             else
                 File.AutoFlush = true;
-        }
 
-        public void Dispose()
-        {
-            File.Dispose();
+            Inited = true;
         }
 
         public override void Log(int thread, DateTime moment, Severity gravity, Message msg)
         {
+            if (!Inited)
+                Init();
+
             string concatMessage = String.Format(
                 Format,
                 gravity,
