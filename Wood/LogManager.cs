@@ -11,63 +11,72 @@ namespace Wood
 
         private LogManager()
         {
+            DefaultConfiguration();
+        }
+
+        public void ClearConfiguration()
+        {
+            Destinations.Clear();
         }
 
         public void DefaultConfiguration()
         {
-            Destinations.AddDestination(new ConsoleDestination());
-            Destinations.AddDestination(new FileDestination());
+            Destinations.Add<ConsoleDestination>();
+            Destinations.Add<FileDestination>();
         }
 
         #region Helpers
-        private void Message(Gravity g, string message)
+        private void Message(Severity g, params object[] message)
         {
-            Destinations.Log(Thread.CurrentThread.ManagedThreadId, DateTime.Now, g, message);
+            Destinations.Log(Thread.CurrentThread.ManagedThreadId, DateTime.Now, g, new Message
+            {
+                Parameters = message
+            });
         }
 
-        public static void Log(Gravity g, string message)
+        public static void Log(Severity g, params object[] message)
         {
             Instance.Message(g, message);
         }
 
-        public static void Debug(string message)
+        public static void Debug(params object[] message)
         {
-            Instance.Message(Gravity.Debugging, message);
+            Instance.Message(Severity.Debugging, message);
         }
 
-        public static void Information(string message)
+        public static void Information(params object[] message)
         {
-            Instance.Message(Gravity.Informational, message);
+            Instance.Message(Severity.Informational, message);
         }
 
-        public static void Notice(string message)
+        public static void Notice(params object[] message)
         {
-            Instance.Message(Gravity.Notice, message);
+            Instance.Message(Severity.Notice, message);
         }
 
-        public static void Warn(string message)
+        public static void Warn(params object[] message)
         {
-            Instance.Message(Gravity.Warning, message);
+            Instance.Message(Severity.Warning, message);
         }
 
-        public static void Error(string message)
+        public static void Error(params object[] message)
         {
-            Instance.Message(Gravity.Error, message);
+            Instance.Message(Severity.Error, message);
         }
 
-        public static void Critical(string message)
+        public static void Critical(params object[] message)
         {
-            Instance.Message(Gravity.Critical, message);
+            Instance.Message(Severity.Critical, message);
         }
 
-        public static void Alert(string message)
+        public static void Alert(params object[] message)
         {
-            Instance.Message(Gravity.Alert, message);
+            Instance.Message(Severity.Alert, message);
         }
 
-        public static void Emergency(string message)
+        public static void Emergency(params object[] message)
         {
-            Instance.Message(Gravity.Emergency, message);
+            Instance.Message(Severity.Emergency, message);
         }
         #endregion
     }

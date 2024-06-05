@@ -1,7 +1,8 @@
 ﻿using System;
 using System.IO;
+using System.Linq;
 
-namespace Wood.Destination;
+namespace Wood.Destination
 {
     /// <summary>
     /// Write log into file. Keeps file open during object existence.
@@ -9,12 +10,19 @@ namespace Wood.Destination;
 
     public class FileDestination
         : Destination
-    ,   , IDisposable
+        , IDisposable
     {
         public readonly string Path;
-        public readonly StreamWriter File; 
+        public readonly StreamWriter File;
+        public string Format = "[{0}] {1}, {2}: {3}";
 
-        public FileDestination(string dirpath = "./logs/")
+        public FileDestination()
+            : this("./logs/")
+        {
+
+        }
+
+        public FileDestination(string dirpath)
         {
             Path = dirpath;
 
@@ -25,19 +33,27 @@ namespace Wood.Destination;
 
             File = new StreamWriter(Path, true);
             if (File.BaseStream == null)
-                LogManager.Log(Gravity.Error, $"Cannot open log file: {Path}.");
+                LogManager.Log(Severity.Error, $"Cannot open log file: {Path}.");
             else
                 File.AutoFlush = true;
         }
 
-    public void Dispose()
-    {
-        File.Dispose();
-    }
-
-    public override void Log(int thread, DateTime moment, Gravity gravity, string message)
+        public void Dispose()
         {
-            File.WriteLine("[" + gravity.ToString() + "] " + moment.ToString("HH:mm:ss.ff") + ", " + thread + ": " + message);
+            File.Dispose();
+        }
+
+        public override void Log(int thread, DateTime moment, Severity gravity, Message msg)
+        {
+            string concatMessage = String.Format(
+                Format,
+                gravity,
+                moment.ToString("HH:mm:ss.ff"),
+                thread,
+                String.Concat(msg.Parameters.Where(x => !(x is Flavor)))
+            );
+
+            File.WriteLine(concatMessage);
         }
     }
 }
