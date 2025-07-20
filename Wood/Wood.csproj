@@ -8,8 +8,8 @@
     <Description>Simple extendable log system</Description>
     <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <Version>2.1.0</Version>
-    <PackageReleaseNotes>added flavored helper</PackageReleaseNotes>
+    <Version>2.1.1</Version>
+    <PackageReleaseNotes>fixed negative iq</PackageReleaseNotes>
     <RepositoryUrl>https://github.com/taywon18/wood</RepositoryUrl>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <PackageReadmeFile>README.md</PackageReadmeFile>

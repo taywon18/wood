@@ -33,9 +33,9 @@ namespace Wood
         Progress
     }
 
-    static class Flavored
+    public static class Flavored
     {
-        static object[] Important(params object[] parameters)
+        public static object[] Important(params object[] parameters)
         {
             List<object> result = new List<object>(parameters.Length + 2);
             result.Add(Flavor.Important);
@@ -44,7 +44,7 @@ namespace Wood
             return result.ToArray();
         }
 
-        static object[] Ok(params object[] parameters)
+        public static object[] Ok(params object[] parameters)
         {
             List<object> result = new List<object>(parameters.Length + 2);
             result.Add(Flavor.Ok);
@@ -53,7 +53,7 @@ namespace Wood
             return result.ToArray();
         }
 
-        static object[] Failed(params object[] parameters)
+        public static object[] Failed(params object[] parameters)
         {
             List<object> result = new List<object>(parameters.Length + 2);
             result.Add(Flavor.Failed);
@@ -62,7 +62,7 @@ namespace Wood
             return result.ToArray();
         }
 
-        static object[] Progress(params object[] parameters)
+        public static object[] Progress(params object[] parameters)
         {
             List<object> result = new List<object>(parameters.Length + 2);
             result.Add(Flavor.Progress);
